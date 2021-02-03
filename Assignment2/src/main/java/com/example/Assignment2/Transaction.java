@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID TransactionID;
     public String from;
     public String to;
@@ -24,7 +24,7 @@ public class Transaction {
     }
 
     public Transaction() {
-        
+
     }
 
     public UUID getTransactionID() {
