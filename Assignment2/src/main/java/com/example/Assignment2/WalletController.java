@@ -13,8 +13,8 @@ public class WalletController {
     @Autowired
     private WalletInterface walletInterface;
 
-//    @Autowired
-//    private TransactionInterface transactionInterface;
+    @Autowired
+    private TransactionInterface transactionInterface;
 
     @PostMapping(path = "/wallet")
     public @ResponseBody
@@ -51,8 +51,8 @@ public class WalletController {
         payee.setAmount(payee_amount+amount);
         payer.setAmount(payee_amount-amount);
 
-//        Transaction transaction=new Transaction(payer_no,payee_no,amount);
-//        transactionInterface.save(transaction);
+        Transaction transaction=new Transaction(payer_no,payee_no,amount);
+        transactionInterface.save(transaction);
 
 //        save new amounts to DB
 //        walletInterface.save(payee);
@@ -61,38 +61,38 @@ public class WalletController {
         return "Transaction Completed";
     }
 
-//    @GetMapping(path = "/transaction")
-//    public ArrayList<Transaction> getTransaction(@RequestParam String userId){
-//
-//        ArrayList<UUID> list=new ArrayList<>();
-//        if(!walletInterface.findById(userId).isPresent())
-//        {
-//            System.out.println("User Doesn`t Exists");
-//            return null;
-//        }
-//        Wallet user=walletInterface.findById(userId).get();
-//        list= user.getTransactions();
-//
-//        ArrayList<Transaction> retList=new ArrayList<Transaction>();
-//        for (int i = 0; i < list.size() ; i++) {
-//            if(transactionInterface.findById(list.get(i)).isPresent()){
-//                retList.add(transactionInterface.findById(list.get(i)).get());
-//            }
-//        }
-//        //return all Transactions: get another function
-////        return retListist;
-//        return  retList;
-//    }
-//
-//    @GetMapping(path = "/transaction")
-//    public String checkStatus(@RequestParam UUID txnID){
-//
-//        //we are only keeping
-//        if(!transactionInterface.findById(txnID).isPresent())
-//            return "transaction Passed";
-//
-//        return "transaction Failed";
-//    }
+    @GetMapping(path = "/transaction")
+    public ArrayList<Transaction> getTransaction(@RequestParam String userId){
+
+        ArrayList<UUID> list=new ArrayList<>();
+        if(!walletInterface.findById(userId).isPresent())
+        {
+            System.out.println("User Doesn`t Exists");
+            return null;
+        }
+        Wallet user=walletInterface.findById(userId).get();
+        list= user.getTransactions();
+
+        ArrayList<Transaction> retList=new ArrayList<Transaction>();
+        for (int i = 0; i < list.size() ; i++) {
+            if(transactionInterface.findById(list.get(i)).isPresent()){
+                retList.add(transactionInterface.findById(list.get(i)).get());
+            }
+        }
+        //return all Transactions: get another function
+//        return retListist;
+        return  retList;
+    }
+
+    @GetMapping(path = "/transaction")
+    public String checkStatus(@RequestParam UUID txnID){
+
+        //we are only keeping
+        if(!transactionInterface.findById(txnID).isPresent())
+            return "transaction Passed";
+
+        return "transaction Failed";
+    }
 }
 /***
  * Wallet Management
